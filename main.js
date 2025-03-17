@@ -37,4 +37,13 @@ ipcMain.handle("send-msg", async (event, args) => {
 
 ipcMain.on("save-config", (event, config) => {
 	const configFilePath = path.join(app.getPath("userData"), "config.json");
+	fs.writeFileSync(configFilePath, JSON.stringify(config));	
+});
+ipcMain.on("load-config", (event) => {
+	const configFilePath = path.join(app.getPath("userData"), "config.json");
+	const configData = fs.readFileSync(configFilePath, "utf-8");
+	return JSON.parse(configData);
+});
+ipcMain.handle("open-file", async ()=> {
+
 });
