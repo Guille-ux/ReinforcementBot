@@ -13,18 +13,32 @@
 		<h1 id="Title">Swelshiniano Local v1</h1>
 	</div>
 	<div class="container">
+		<div class="sidebar">
+			<div class="toggle-container">
+				<button class="mybtn" id="ajustes">Settings</button>
+			</div>
+			<div class="modal hided" id="settings">
+				<h3>Settings</h3>
+				<p>Configuration of the Bot</p>
+				<div class="file-dialogs" id="config-files">
+					<p>Responses File</p><input class="mybtn" type="file" id="responses_file">
+					<p>StopWords File</p><input class="mybtn" type="file" id="stopwords_file"> 
+				</div>
+				<button class="mybtn" id="save">Save</button>
+				<button class="mybtn" id="load">Load</button>
+			</div>
+		</div>
 		<div class="out">
 			<div id="out_data">
 			</div>
 		</div>
 		<div class="input">
 			<input type="text" id="question" placeholder="Type your Question...">
-			<button id="send">Ask</button>
-			<button id="y">Good</button>
-			<button id="n">Bad</button>
+			<button class="mybtn" id="send">Ask</button>
+			<button class="mybtn" id="y">Good</button>
+			<button class="mybtn"id="n">Bad</button>
 		</div>
 		<script src="renderer.js"></script>
 	</div>
-	
 </body>
 </html>
