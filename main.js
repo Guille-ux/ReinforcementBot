@@ -20,14 +20,14 @@ app.on("window-all-closed", () =>  {
 });
 
 app.on("activate", () => {
-	if (BrowserWindow.getAllWIndows().length === 0) {
+	if (BrowserWindow.getAllWindows().length === 0) {
 		window_init(size_x, size_y);
 	}
 });
 
 
 ipcMain.handle("send-msg", async (event, args) => {
-	const process = spawn("python", [path.join(__dirname, "api/rapi.py"), args.responses_file, args.stopwords_file, args.action, ...args.data]);
+	const process = spawn(path.join(__dirname, "../../api/rapi"), [path.join(app.getPath("userData"), args.responses_file), path.join(app.getPath("userData"), args.stopwords_file), args.action, ...args.data]);
 	let result = "";
 	for await (const data of process.stdout) {
 		result += data.toString();
@@ -44,6 +44,13 @@ ipcMain.on("load-config", (event) => {
 	const configData = fs.readFileSync(configFilePath, "utf-8");
 	return JSON.parse(configData);
 });
-ipcMain.handle("open-file", async ()=> {
-
+ipcMain.on("save-file", (event, name, data)=> {
+	const filePath = path.join(app.getPath("userData"), name);
+	fs.writeFile(filePath, data, (err) => {
+		if (err) {
+			console.log("Error writing the file!");
+		} else {
+			console.log("Saved without errors");
+		}
+	});
 });

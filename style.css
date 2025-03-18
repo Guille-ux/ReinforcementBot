@@ -77,10 +77,6 @@ body {
 	max-width: 600px;
 }
 
-.out {
-	margin-bottom: 300px;
-}
-
 .input:focus {
 	border: 2px solid #007bff;
 }
@@ -118,11 +114,16 @@ body {
 	
 }
 
+.out {
+	margin-bottom: 30px;
+}
 
 .modal.hided {
 	opacity: 0;
 	pointer-events: 0;
+	display: none;
 }
+
 
 
 
