@@ -10,6 +10,8 @@ async function sendToAPI(responsesFile, stopwordsFile, action, data) {
 	return await ipcRenderer.invoke("send-msg", args);
 }
 
+const history = [];
+
 const settingsButton = document.getElementById("ajustes");
 const modal = document.getElementById("settings");
 const rfile = document.getElementById("responses_file");
@@ -21,6 +23,7 @@ const badButton = document.getElementById("n"); // n
 const askButton = document.getElementById("send"); //send
 const response = document.getElementById("out_data");
 const question = document.getElementById("question");
+const save_chat = document.getElementById("save-chat");
 
 settingsButton.addEventListener("click", ()=> {
 	modal.classList.toggle("hided");
@@ -34,6 +37,10 @@ save_button.addEventListener("click", async () => {
 	ipcRenderer.send("save-file", filenames[1], data[1]);
 	sendToAPI(filenames[0], filenames[1], "new");
 });
+
+function scrollToBottom() {
+	window.scrollTo({top: document.body.scrollHeight, behavior: "smooth"});
+}
 
 function readFileContent(file) {
 	return new Promise((resolve, reject) => {
@@ -49,18 +56,36 @@ function readFileContent(file) {
 }
 
 askButton.addEventListener("click", () => {
-	sendToAPI(filenames[0], filenames[1], "ask", question.innerText).then(answer => {
-		response.innerHTML += "<div> <img src='favicon.svg' alt='Logo' width='50' height='50'>" + answer + "</div>" ;
+	sendToAPI(filenames[0], filenames[1], "ask", question.value).then(answer => {
+		response.innerHTML += "<div class='user-message'>" + question.value + "</div>";
+		response.innerHTML += "<div class='message'> <img src='favicon.svg' alt='Logo' width='50' height='50'>" + answer + "</div>" ;
+		let new_h = {"ques":question.value, "answer":answer};
+		history.push(new_h);
+		scrollToBottom();
 	});
 });
 
 goodButton.addEventListener("click", () => {
 	sendToAPI(filenames[0], filenames[1], "update-log", "y").then(answer => {
 		response.innerHTML += answer + "\n";
+		scrollToBottom();
 	});
 });
 badButton.addEventListener("click", () => {
 	sendToAPI(filenames[0], filenames[1], "update-log", "n").then(answer => {
 		response.innerHTML += answer + "\n";
+		scrollToBottom();
 	});
+});
+
+save_chat.addEventListener("click", ()=> {
+	let text = "Conversation History: \n";
+	let a = "Question: ";
+	let b = "Swelshiniano's Answer: ";
+	for (let i=0; i<history.length; i++) {
+		text += a + history[i].ques + "\n";
+		text += b + history[i].answer + "\n";
+		text += "\n";
+	}
+	ipcRenderer.send("save-f", "history.txt", text);
 });
