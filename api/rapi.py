@@ -20,7 +20,6 @@ elif sys.argv[3] == "ask":
 	returned = apibot.ask(question)
 	with open(log_file, "w") as f:
 		json.dump(apibot.last, f)
-	apibot.file_bot("save_file.json", "save")
 elif sys.argv[3] == "update-log":
 	apibot.file_bot("save_file.json", "load")
 	feed = sys.argv[4]
@@ -28,4 +27,5 @@ elif sys.argv[3] == "update-log":
 		apibot.last = json.load(f)
 	apibot.reforce(feed)
 	returned = "¡Thanks!"
+	apibot.file_bot("save_file.json", "save")
 print(returned)
