@@ -1,5 +1,6 @@
 
 body {
+	
 	font-family: sans-serif;
 	margin: 0;
 	padding: 0;
@@ -7,6 +8,31 @@ body {
 	flex-direction: column;
 	align-items: center;
 	background: #85d8c5;
+	overflow-y: auto;
+}
+
+.user-message {
+	text-align: right;
+	margin-bottom: 20px;
+	max-width: 300px;
+	color: #fff;
+	background-color: #777;
+	opacity: 80%;
+	padding: 10px;
+	border: 2px solid #343;
+	border-radius: 10px;
+}
+
+.message {
+	display: flex;
+	margin-bottom: 20px;
+	max-width: 300px;
+	color: #fff;
+	background-color: #655;
+	opacity: 80%;
+	padding: 10px;
+	border: 2px solid #343;
+	border-radius: 10px;
 }
 
 .gradient-bar {
@@ -43,8 +69,8 @@ body {
 }
 
 #ajustes {
-	position: absolute;
-	right: 440px;
+	position: fixed;
+	left: 10px;
 }
 
 
@@ -77,8 +103,10 @@ body {
 	max-width: 600px;
 }
 
+
+
 .input:focus {
-	border: 2px solid #007bff;
+	border: 3px solid #007bff;
 }
 
 #save {
@@ -96,26 +124,33 @@ body {
 }
 
 
+#sticked {
+	display: flex;
+	position: fixed;
+	bottom: 0;
+}
 
 .modal {
+	position: fixed;
 	display: block;
 	transition: opacity 0.3s ease;
 	border: 3px solid #000000;
 	border-radius: 10px;
-	position: absolute;
-	padding-left: 100px;
+	padding-left: 10px;
 	padding-bottom: 100px;
 	padding-right: 0px;
 	background: #92bb96;
-	right: 200px;
-	top: 50px;
+	left: 50px;
+	top: 150px;
 	z-index: 1;
-	overflow: auto;
+	max-width: 300px;
 	
 }
 
 .out {
-	margin-bottom: 30px;
+	margin-bottom: 100px;
+	flex: 1;
+	padding: 10px;
 }
 
 .modal.hided {
@@ -129,10 +164,13 @@ body {
 
 .input {
 	position: relative;
-	right: 100px;
+	right: 0px;
 	align-items: center;
 	flex-grow: 1;
-	width: 170%;
+	width: 90%;
+	bottom: 0;
+	padding: 10px;
+	margin-bottom: 10px;
 }
 
 #question {
