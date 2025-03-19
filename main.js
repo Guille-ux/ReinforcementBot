@@ -27,7 +27,7 @@ app.on("activate", () => {
 
 
 ipcMain.handle("send-msg", async (event, args) => {
-	const process = spawn(path.join(__dirname, "../../api/rapi"), [path.join(app.getPath("userData"), args.responses_file), path.join(app.getPath("userData"), args.stopwords_file), args.action, ...args.data]);
+	const process = spawn(path.join(__dirname, "../../api/api"), [path.join(app.getPath("userData"), args.responses_file), path.join(app.getPath("userData"), args.stopwords_file), args.action, ...args.data]);
 	let result = "";
 	for await (const data of process.stdout) {
 		result += data.toString();
@@ -46,6 +46,16 @@ ipcMain.on("load-config", (event) => {
 });
 ipcMain.on("save-file", (event, name, data)=> {
 	const filePath = path.join(app.getPath("userData"), name);
+	fs.writeFile(filePath, data, (err) => {
+		if (err) {
+			console.log("Error writing the file!");
+		} else {
+			console.log("Saved without errors");
+		}
+	});
+});
+ipcMain.on("save-f", (event, name, data)=> {
+	const filePath = path.join(__dirname, name);
 	fs.writeFile(filePath, data, (err) => {
 		if (err) {
 			console.log("Error writing the file!");
