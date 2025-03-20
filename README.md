@@ -1,3 +1,7 @@
+# IMPORTANT 
+actually is a problem with the bot, so the bot isn't working correctly with the reinforcement, i am working on that, sorry.
+
+
 # ReinforcementBot
 Is a ChatBot that works with Q-learning
 ## Swelshiniano V1, how it works
