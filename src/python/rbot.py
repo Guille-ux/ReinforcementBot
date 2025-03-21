@@ -129,7 +129,7 @@ class ReinforcementBot:
 		print("Saliste correctamente, espero que lo hayas pasado bien")
 	def file_bot(self, filename, sl):
 		if sl=="save":
-			data = {"mat":self.mat, "pointer":self.pointer}
+			data = {"mat":self.mat, "pointer":self.pointer, "qs":self.qs}
 			with open(filename, "w") as f:
 				json.dump(data, f)
 		elif sl=="load":
@@ -137,5 +137,6 @@ class ReinforcementBot:
 				data = json.load(f)
 			self.pointer=data["pointer"]
 			self.mat=data["mat"]
+			self.qs = data["qs"]
 		else:
 			return 0
